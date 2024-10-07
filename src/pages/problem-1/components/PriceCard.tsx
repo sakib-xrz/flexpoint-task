@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 
 export default function PriceCard() {
   return (
-    <div className="p-4 bg-white border border-[#eaeff2] rounded-lg py-6 px-5 border-t-8 border-t-[#ffb72c] relative">
+    <div className="p-4 bg-white border border-[#eaeff2] rounded-lg py-6 px-5 border-t-8 border-t-[#ffb72c] relative transition-all delay-[.25s]">
       <span className="absolute rounded-[3px] text-white bg-[#68cb9b] font-medium text-xs right-[6px] top-[6px] py-[6.5px] px-2">
         Most Popular
       </span>
@@ -32,6 +32,14 @@ export default function PriceCard() {
           Everything in free plus:
         </h2>
       </div>
+
+      <ul className="list-none mb-3">
+        <li className="py-[10px]">
+          <div>
+            <span className="text-[#49687e]">Traffic source targeting</span>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 }

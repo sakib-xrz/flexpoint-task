@@ -12,7 +12,7 @@ export default function Container({ children, className }: ContainerProps) {
     <div
       className={cn(
         "mx-auto",
-        "max-w-7xl",
+        "max-w-6xl",
         "px-4",
         "py-5",
         "lg:py-8",
