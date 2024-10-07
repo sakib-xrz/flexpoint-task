@@ -1,5 +1,26 @@
 import { Info } from "lucide-react";
-import { PlanType } from "../../../redux/features/price/priceSlice";
+import Dropdown from "./Dropdown";
+
+interface PlanDetails {
+  price: string;
+  price_postfix: string;
+  plan_type: string;
+  plan_info: string;
+  dd_text: string;
+  btn_text: string;
+  price_id: string;
+}
+export interface PlanType {
+  name: string;
+  price: string;
+  title: string;
+  text: string;
+  details: {
+    "1_year": PlanDetails;
+    "2_year": PlanDetails;
+  };
+  extraPlans?: PlanType[];
+}
 
 interface FeaturesType {
   is_pro: string;
@@ -42,7 +63,8 @@ export default function PriceCard({
   features: FeaturesType[];
   billType: string;
 }) {
-  const { name, title, details } = plan;
+  const { name, title, details, extraPlans } = plan;
+
   const planColors = colors[name] || colors["Free"];
   const priceDetails =
     billType === "Billed monthly" ? details["1_year"] : details["2_year"];
@@ -81,17 +103,20 @@ export default function PriceCard({
         </div>
       </div>
 
-      <div
-        className="flex gap-[5px] items-center rounded-[32px] text-[12.5px] py-[5px] px-[15px] w-fit"
-        style={{
-          color: planColors.primary,
-          backgroundColor: planColors.secondary,
-        }}
-      >
-        <span className="prose" dangerouslySetInnerHTML={{ __html: title }} />
-        <Info className="size-4" />
-      </div>
-
+      {extraPlans?.length ? (
+        <Dropdown extraPlans={extraPlans} planName={name} />
+      ) : (
+        <div
+          className="flex gap-[5px] items-center rounded-[32px] text-[12.5px] py-[5px] px-[15px] w-fit"
+          style={{
+            color: planColors.primary,
+            backgroundColor: planColors.secondary,
+          }}
+        >
+          <span className="prose" dangerouslySetInnerHTML={{ __html: title }} />
+          <Info className="size-4" />
+        </div>
+      )}
       <div className="pt-[18px]">
         <h2 className="font-semibold text-[#49687e] py-2">
           {name !== "Free" ? "Everything in Free plus:" : "Free includes:"}

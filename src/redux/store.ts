@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import priceReducer from "./features/price/priceSlice";
+import planReducer from "./features/plans/planSlice";
 
 export const store = configureStore({
   reducer: {
-    price: priceReducer,
+    plans: planReducer,
   },
 });
 

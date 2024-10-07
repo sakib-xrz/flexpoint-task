@@ -1,38 +1,24 @@
+import { useEffect } from "react";
+import { setPlans, setBillType } from "../../redux/features/plans/planSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import Container from "../../components/Container";
 import PriceCard from "./components/PriceCard";
 import jsonData from "../../../data/pricing.json";
-import { useState } from "react";
 import { cn } from "../../lib/utils";
+import { RootState } from "../../redux/store";
 
-export default function Problem1() {
-  const { plans, plansInfo, features } = jsonData;
-  const [billType, setBillType] = useState(plansInfo["1_year"].title);
+export default function PricingPage() {
+  const dispatch = useAppDispatch();
+  const { plans, billType } = useAppSelector((state: RootState) => state.plans);
+  const { plansInfo, features } = jsonData;
 
-  const uniquePlans = plans.filter(
-    (plan, index, self) => self.findIndex((t) => t.name === plan.name) === index
-  );
-
-  const modifiedPlans = uniquePlans.map((plan) => {
-    const samePlans = plans.filter((p) => p.name === plan.name);
-
-    if (samePlans.length > 1) {
-      return {
-        ...plan,
-        extraPlans: samePlans,
-      };
-    }
-
-    return {
-      ...plan,
-      extraPlans: [],
-    };
-  });
-
-  console.log(modifiedPlans);
+  useEffect(() => {
+    dispatch(setPlans(jsonData.plans));
+  }, [dispatch]);
 
   const renderButton = (type: keyof typeof plansInfo) => (
     <button
-      onClick={() => setBillType(plansInfo[type].title)}
+      onClick={() => dispatch(setBillType(plansInfo[type].title))}
       className={cn(
         "border-b-2 border-b-transparent bg-transparent cursor-pointer py-1 text-[#49687e] max-sm:text-sm",
         billType === plansInfo[type].title
@@ -52,7 +38,7 @@ export default function Problem1() {
         </div>
         {renderButton("2_year")}
         <span
-          onClick={() => setBillType(plansInfo["2_year"].title)}
+          onClick={() => dispatch(setBillType(plansInfo["2_year"].title))}
           className="flex items-center bg-[rgba(183,141,235,0.15)] rounded-[40px] cursor-pointer ml-[10px] px-3 py-[5px] text-[#49687e] max-sm:text-sm"
         >
           {plansInfo["2_year"].discount}
@@ -60,10 +46,10 @@ export default function Problem1() {
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-[30px]">
-        {uniquePlans.map((plan, index) => (
+        {plans.map((plan, index) => (
           <PriceCard
             key={index}
-            plan={Array.isArray(plan) ? plan[0] : plan}
+            plan={plan}
             features={features}
             billType={billType}
           />
