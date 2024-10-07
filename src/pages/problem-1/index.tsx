@@ -12,6 +12,24 @@ export default function Problem1() {
     (plan, index, self) => self.findIndex((t) => t.name === plan.name) === index
   );
 
+  const modifiedPlans = uniquePlans.map((plan) => {
+    const samePlans = plans.filter((p) => p.name === plan.name);
+
+    if (samePlans.length > 1) {
+      return {
+        ...plan,
+        extraPlans: samePlans,
+      };
+    }
+
+    return {
+      ...plan,
+      extraPlans: [],
+    };
+  });
+
+  console.log(modifiedPlans);
+
   const renderButton = (type: keyof typeof plansInfo) => (
     <button
       onClick={() => setBillType(plansInfo[type].title)}
@@ -45,7 +63,7 @@ export default function Problem1() {
         {uniquePlans.map((plan, index) => (
           <PriceCard
             key={index}
-            plan={plan}
+            plan={Array.isArray(plan) ? plan[0] : plan}
             features={features}
             billType={billType}
           />
