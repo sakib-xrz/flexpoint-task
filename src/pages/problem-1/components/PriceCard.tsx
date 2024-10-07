@@ -1,25 +1,5 @@
 import { Info } from "lucide-react";
-
-interface PlanDetails {
-  price: string;
-  price_postfix: string;
-  plan_type: string;
-  plan_info: string;
-  dd_text: string;
-  btn_text: string;
-  price_id: string;
-}
-
-interface PlanType {
-  name: string;
-  price: string;
-  title: string;
-  text: string;
-  details: {
-    "1_year": PlanDetails;
-    "2_year": PlanDetails;
-  };
-}
+import { PlanType } from "../../../redux/features/price/priceSlice";
 
 interface FeaturesType {
   is_pro: string;
