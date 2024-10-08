@@ -1,18 +1,23 @@
-import { ChevronDown, ChevronUp, InfoIcon } from "lucide-react";
+import { ChevronDown, InfoIcon } from "lucide-react";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { RootState } from "../../../redux/store";
 import { setUpdatedPlans } from "../../../redux/features/plans/planSlice";
 import { PlanType } from "./PriceCard";
+import { cn } from "../../../lib/utils";
 
 export default function Dropdown({
   extraPlans,
   planName,
+  planColors,
 }: {
   extraPlans: PlanType[];
   planName: string;
+  planColors: { primary: string; secondary: string; primaryHover: string };
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const { plans } = useAppSelector((state: RootState) => state.plans);
 
   const selectedPlan =
@@ -44,17 +49,27 @@ export default function Dropdown({
       <div className="relative">
         <button
           onClick={toggleDropdown}
-          className="border border-primary text-primary text-sm rounded h-8 flex items-center justify-between px-3"
+          className="text-sm rounded h-8 flex items-center justify-between pl-5 pr-3"
+          style={{
+            color: planColors.primary,
+            borderColor: planColors.primary,
+            borderWidth: "1px",
+            borderStyle: "solid",
+          }}
         >
           <p
-            className="w-36 truncate feature text-[12.5px]"
+            className="max-w-[138px] truncate feature text-[12.5px]"
             dangerouslySetInnerHTML={{ __html: selectedPlan.title }}
           ></p>
-          {isOpen ? (
-            <ChevronUp className="ml-2 size-4" />
-          ) : (
-            <ChevronDown className="ml-2 size-4" />
-          )}
+
+          <ChevronDown
+            className={cn(
+              "ml-2 size-4",
+              isOpen
+                ? "-rotate-180 transition ease-in-out duration-300"
+                : "transition ease-in-out duration-300"
+            )}
+          />
         </button>
 
         {isOpen && (
@@ -62,7 +77,22 @@ export default function Dropdown({
             {extraPlans.map((option, index) => (
               <li
                 key={index}
-                className={`px-4 py-2 cursor-pointer text-sm hover:bg-secondary hover:text-primary feature`}
+                className="px-4 py-2 cursor-pointer text-sm feature"
+                style={{
+                  backgroundColor:
+                    selectedPlan?.title === option?.title && !hoveredIndex
+                      ? planColors.secondary
+                      : hoveredIndex === index
+                        ? planColors.secondary
+                        : "",
+                  color:
+                    hoveredIndex === index ||
+                    selectedPlan?.title === option?.title
+                      ? planColors.primary
+                      : "#49687e",
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => handleSelect(option)}
                 dangerouslySetInnerHTML={{ __html: option.title }}
               />
@@ -70,7 +100,11 @@ export default function Dropdown({
           </ul>
         )}
       </div>
-      <div>
+      <div
+        style={{
+          color: planColors.primary,
+        }}
+      >
         <InfoIcon className="size-4" />
       </div>
     </div>

@@ -66,6 +66,7 @@ export default function PriceCard({
   const { name, title, details, extraPlans } = plan;
 
   const planColors = colors[name] || colors["Free"];
+
   const priceDetails =
     billType === "Billed monthly" ? details["1_year"] : details["2_year"];
   const filteredFeatures = features.filter((feature) =>
@@ -104,7 +105,11 @@ export default function PriceCard({
       </div>
 
       {extraPlans?.length ? (
-        <Dropdown extraPlans={extraPlans} planName={name} />
+        <Dropdown
+          extraPlans={extraPlans}
+          planName={name}
+          planColors={planColors}
+        />
       ) : (
         <div
           className="flex gap-[5px] items-center rounded-[32px] text-[12.5px] py-[5px] px-[15px] w-fit"
