@@ -1,10 +1,11 @@
-import { ChevronDown, InfoIcon } from "lucide-react";
+import { ChevronDown, Info } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { RootState } from "../../../redux/store";
 import { setUpdatedPlans } from "../../../redux/features/plans/planSlice";
 import { PlanType } from "./PriceCard";
 import { cn } from "../../../lib/utils";
+import Tooltip from "./Tooltip";
 
 export default function Dropdown({
   extraPlans,
@@ -114,13 +115,21 @@ export default function Dropdown({
           </ul>
         )}
       </div>
-      <div
-        style={{
-          color: planColors.primary,
-        }}
-      >
-        <InfoIcon className="size-4 cursor-pointer" />
-      </div>
+
+      <Tooltip
+        triggerText={
+          <div
+            style={{
+              color: planColors.primary,
+            }}
+          >
+            <Info className="size-4 cursor-pointer" />
+          </div>
+        }
+        tooltipContent={selectedPlan.text}
+        tooltipPositionClassName="right-[-28px]"
+        tooltipArrowClassName="right-[22px]"
+      />
     </div>
   );
 }

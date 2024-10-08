@@ -1,5 +1,6 @@
 import { Info } from "lucide-react";
 import Dropdown from "./Dropdown";
+import Tooltip from "./Tooltip";
 
 interface PlanDetails {
   price: string;
@@ -63,7 +64,7 @@ export default function PriceCard({
   features: FeaturesType[];
   billType: string;
 }) {
-  const { name, title, details, extraPlans } = plan;
+  const { name, title, text, details, extraPlans } = plan;
 
   const planColors = colors[name] || colors["Free"];
 
@@ -119,7 +120,12 @@ export default function PriceCard({
           }}
         >
           <span className="prose" dangerouslySetInnerHTML={{ __html: title }} />
-          <Info className="size-4 cursor-pointer" />
+          <Tooltip
+            triggerText={<Info className="size-4 cursor-pointer" />}
+            tooltipContent={text}
+            tooltipPositionClassName="right-[-28px]"
+            tooltipArrowClassName="right-[22px]"
+          />
         </div>
       )}
       <div className="pt-[18px]">
@@ -131,9 +137,14 @@ export default function PriceCard({
       <ul className="list-none mb-4">
         {filteredFeatures.map((feature, index) => (
           <li className="py-[5px]" key={index}>
-            <span className="text-[#49687e] text-sm cursor-pointer">
-              {feature.feature_title}
-            </span>
+            <Tooltip
+              triggerText={
+                <span className="text-[#49687e] text-sm cursor-pointer">
+                  {feature.feature_title}
+                </span>
+              }
+              tooltipContent={feature.feature_desc}
+            />
           </li>
         ))}
       </ul>

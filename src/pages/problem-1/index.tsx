@@ -31,7 +31,7 @@ export default function PricingPage() {
   );
 
   return (
-    <Container>
+    <Container className="my-14">
       <div className="flex justify-center items-center">
         <div className="border-r border-r-[#c6d7e3] max-sm:pr-2 max-sm:mr-2 pr-[17px] mr-[17px]">
           {renderButton("1_year")}
