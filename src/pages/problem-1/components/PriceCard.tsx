@@ -119,7 +119,7 @@ export default function PriceCard({
           }}
         >
           <span className="prose" dangerouslySetInnerHTML={{ __html: title }} />
-          <Info className="size-4" />
+          <Info className="size-4 cursor-pointer" />
         </div>
       )}
       <div className="pt-[18px]">
@@ -131,7 +131,7 @@ export default function PriceCard({
       <ul className="list-none mb-4">
         {filteredFeatures.map((feature, index) => (
           <li className="py-[5px]" key={index}>
-            <span className="text-[#49687e] text-sm">
+            <span className="text-[#49687e] text-sm cursor-pointer">
               {feature.feature_title}
             </span>
           </li>

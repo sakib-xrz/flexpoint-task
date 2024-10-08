@@ -1,5 +1,5 @@
 import { ChevronDown, InfoIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { RootState } from "../../../redux/store";
 import { setUpdatedPlans } from "../../../redux/features/plans/planSlice";
@@ -19,10 +19,8 @@ export default function Dropdown({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const { plans } = useAppSelector((state: RootState) => state.plans);
-
   const selectedPlan =
     plans.find((plan) => plan.name === planName) || extraPlans[0];
-
   const dispatch = useAppDispatch();
 
   const toggleDropdown = () => {
@@ -44,8 +42,24 @@ export default function Dropdown({
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        !(event.target as HTMLElement).closest(".dropdown-container")
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="relative inline-flex items-center space-x-2">
+    <div className="relative inline-flex items-center space-x-2 dropdown-container">
       <div className="relative">
         <button
           onClick={toggleDropdown}
@@ -105,7 +119,7 @@ export default function Dropdown({
           color: planColors.primary,
         }}
       >
-        <InfoIcon className="size-4" />
+        <InfoIcon className="size-4 cursor-pointer" />
       </div>
     </div>
   );
