@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { setPlans, setBillType } from "../../redux/features/plans/planSlice";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { setPlans, setBillType } from "../../redux/features/plans/planSlice";
 import Container from "../../components/Container";
 import PriceCard from "./components/PriceCard";
 import jsonData from "../../../data/pricing.json";

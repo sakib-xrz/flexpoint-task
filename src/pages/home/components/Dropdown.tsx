@@ -1,11 +1,13 @@
-import { ChevronDown, Info } from "lucide-react";
 import { useState, useEffect } from "react";
+import { ChevronDown, Info } from "lucide-react";
+
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { RootState } from "../../../redux/store";
 import { setUpdatedPlans } from "../../../redux/features/plans/planSlice";
+
+import Tooltip from "./Tooltip";
 import { PlanType } from "./PriceCard";
 import { cn } from "../../../lib/utils";
-import Tooltip from "./Tooltip";
 
 export default function Dropdown({
   extraPlans,

@@ -1,7 +1,8 @@
 import { useState } from "react";
+
 import AddProductForm from "./components/AddProductForm";
-import ProductList from "./components/ProductList";
 import Container from "../../components/Container";
+import ProductList from "./components/ProductList";
 
 export interface Product {
   id: number;
