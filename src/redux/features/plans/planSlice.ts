@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PlanType } from "../../../pages/problem-1/components/PriceCard";
+import { PlanType } from "../../../pages/home/components/PriceCard";
 import jsonData from "../../../../data/pricing.json";
 
 type PlanState = {
