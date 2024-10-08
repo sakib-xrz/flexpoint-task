@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddProductForm from "./components/AddProductForm";
 import ProductList from "./components/ProductList";
+import Container from "../../components/Container";
 
 export interface Product {
   id: number;
@@ -22,10 +23,10 @@ export default function Problem2() {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Product List</h1>
       <AddProductForm addProduct={addProduct} />
       <ProductList products={products} />
-    </div>
+    </Container>
   );
 }
