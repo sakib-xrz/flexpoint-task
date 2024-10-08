@@ -27,7 +27,7 @@ const Tooltip = ({
       {isHovered && (
         <div
           className={cn(
-            "bg-white border border-white rounded-md shadow-lg text-[#49687e] text-sm absolute leading-[1.5] p-2 whitespace-normal break-words z-10 bottom-[calc(100%+8px)] w-[224px]",
+            "bg-white border border-white rounded-md shadow-lg text-[#49687e] text-sm absolute leading-[1.5] p-2 whitespace-normal break-words z-10 bottom-[calc(100%+8px)] w-full lg:w-[224px]",
             tooltipPositionClassName
           )}
         >
