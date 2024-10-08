@@ -1,4 +1,4 @@
-# Flexpoint Task [Vite + React + TypeScript]
+# Flexpoint Task [ Vite + React + TypeScript ]
 
 ## Live Link: [http://flexpoint-task.vercel.app/](http://flexpoint-task.vercel.app/)
 
